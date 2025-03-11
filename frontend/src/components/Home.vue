@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>Home Page change</div>
+  <div>Home Page</div>
 </template>
 
 <style scoped></style>
