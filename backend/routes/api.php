@@ -8,6 +8,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::get('/test-api', function () {
+
+    return response()->json(['message' => 'API is working']);
+});
+
 
 //Products Route
 

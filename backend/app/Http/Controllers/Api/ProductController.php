@@ -21,6 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         return ProductResource::collection(Product::with(['colors', 'sizes', 'brand', 'category'])
             ->latest()->get())
             ->additional([
