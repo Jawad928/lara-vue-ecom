@@ -5,3 +5,6 @@ https://apalfrey.github.io/select2-bootstrap-5-theme/examples/validation/
 for vue installation
 npm create vite@latest frontend --template vue
 npm install vue-router@4 axios bootstrap bootstrap-icons
+
+**TO INSTALL STRIPE
+composer require stripe/stripe-php
