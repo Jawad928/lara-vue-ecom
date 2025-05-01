@@ -60,7 +60,7 @@ class OrderController extends Controller
 
     public function payOrderByStripe(Request $request)
     {
-        Stripe::setApiKey("sk_test_51RJoCnFQgzY2Ewa2n5Ep4TrcOZX6MUt7mFeYimEfjadM1XCYpF3QAYlCaXRIDvqSPDQyH4Lc8zFXIQiXSQlOLpna001kD67q1O");
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         // Create a Stripe payment intent
         try {
