@@ -174,7 +174,7 @@ class ProductController extends Controller
     {
         if ($file) {
             $imgName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('images/products', $imgName, 'public');
+            $file->storeAs('images/products/', $imgName, 'public');
             return $imgName;
         }
     }

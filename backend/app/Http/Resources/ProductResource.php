@@ -27,10 +27,12 @@ class ProductResource extends JsonResource
             'sizes' => $this->sizes,
             'reviews' => $this->reviews,
             'status' => $this->status,
-            'thumbnail' => $this->thumbnail,
-            'first_image' => $this->first_image ? asset('storage/images/products') . $this->first_image : null,
-            'second_image' => $this->second_image ? asset('storage/images/products') . $this->second_image : null,
-            'third_image' => $this->third_image ? asset('storage/images/products') . $this->third_image : null,
+            'thumbnail' =>  $this->thumbnail
+                ? url("storage/images/products/{$this->thumbnail}")
+                : url("storage/images/products/default.jpg"),
+            'first_image' => $this->first_image ? asset("storage/images/products/{$this->first_image}") : null,
+            'second_image' => $this->second_image ? asset("storage/images/products/{$this->second_image}")  : null,
+            'third_image' => $this->third_image ? asset("storage/images/products/{$this->third_image}") : null,
 
         ];
     }

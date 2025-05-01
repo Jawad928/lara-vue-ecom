@@ -23,7 +23,7 @@ class Order extends Model
 
 
 
-    public function coupen()
+    public function coupon()
     {
         return $this->belongsTo(Coupon::class);
     }

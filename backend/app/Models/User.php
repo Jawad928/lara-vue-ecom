@@ -43,7 +43,8 @@ class User extends Authenticatable
     public function getImagePathAttribute()
     {
         if ($this->profile_image) {
-            return asset($this->profile_image);
+            // Manually prepend the public "storage/images/users/" path
+            return asset('storage/images/users/' . $this->profile_image);
         } else {
             return "https://cdn.pixabay.com/photo/2014/03/25/16/32/user-297330_1280.png";
         }
