@@ -7,12 +7,13 @@ import { onMounted, computed } from "vue";
 import Alert from "../layouts/Alert.vue";
 import ProfileUserInfos from "../profile/ProfileUserInfos.vue";
 import coupon from "../coupon/Coupon.vue";
+import Stripe from "../payment/Stripe.vue";
 // define  auth and cart store
 const authStore = useAuthStore();
 const cartStore = useCartStore();
 
 // define toaster
-const tast = useToast();
+const toast = useToast();
 
 //define router
 const router = useRouter();
@@ -36,7 +37,7 @@ const removeCoupon = () => {
   });
   //set the coupon id to null for each item in the cart store
   cartStore.addCouponToCartItems(null);
-  tast.success("Coupon removed successfully", {
+  toast.success("Coupon removed successfully", {
     timeout: 2000,
   });
 };
@@ -112,9 +113,7 @@ onMounted(() => {
         </li>
       </ul>
       <div class="my-3">
-        <button class="btn btn-dark" v-if="authStore.user?.profile_completed">
-          Pay now
-        </button>
+        <Stripe v-if="authStore.user?.profile_completed"> </Stripe>
         <Alert
           v-else
           content="Please add you billing Details"

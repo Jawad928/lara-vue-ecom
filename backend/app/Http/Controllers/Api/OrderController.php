@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use Stripe\Stripe;
+
 use App\Models\Order;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
+use Stripe\Stripe;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
     public function storeUserOrder(Request $request)
     {
 
-        foreach ($request->cart_item as $item) {
+        foreach ($request->cartItems as $item) {
             $order =   Order::create([
                 'qty' => $item['qty'],
                 'user_id' => $request->user()->id,
@@ -64,24 +65,24 @@ class OrderController extends Controller
 
         // Create a Stripe payment intent
         try {
-            $checkout_sesssion = Session::create([
-                'line_items' => [
+            $checkout_session = Session::create([
+                'line_items' => [[
 
                     'price_data' => [
                         'currency' => 'usd',
                         'product_data' => [
                             'name' => 'vue-T-shirt Store',
                         ],
-                        'unit_amount' => $this->calculateTotalToPay($request->cart_item),
+                        'unit_amount' => $this->calculateTotalToPay($request->cartItems),
                     ],
-                    'qantity' => 1,
-                ],
+                    'quantity' => 1,
+                ]],
                 'mode' => 'payment',
                 'success_url' => $request->success_url,
             ]);
             //return the link to stripe checkout page
             return response()->json([
-                'url' => $checkout_sesssion->url,
+                'url' => $checkout_session->url,
             ]);
         } catch (\Exception $e) {
             return response()->json([

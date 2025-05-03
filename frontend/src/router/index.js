@@ -6,6 +6,8 @@ const Product = () => import('../components/products/Product.vue')
 const Cart = () => import('../components/cart/Cart.vue')
 const Profile = () => import('../components/profile/Profile.vue')
 const Checkout = () => import('../components/checkout/checkout.vue')
+const SuccessPayment = () => import('../components/payment/SuccessPayment.vue')
+
 import { useAuthStore } from "../stores/UseAuthStore.js";
 
 // add route guards to check if user is logged in and redirect to login page if not
@@ -50,6 +52,12 @@ const router = createRouter({
             path: '/checkout',
             name: 'checkout',
             component: Checkout,
+            beforeEnter: [checkIfUserIsLoggedIn]
+        },
+        {
+            path: '/success/payment/:hash',
+            name: 'successPayment',
+            component: SuccessPayment,
             beforeEnter: [checkIfUserIsLoggedIn]
         },
         {
