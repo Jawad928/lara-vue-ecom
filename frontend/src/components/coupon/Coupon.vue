@@ -41,6 +41,9 @@ const applyCoupon = async () => {
       toast.success(response.data.message, {
         timeout: 2000,
       });
+      data.coupon = {
+        name: "",
+      };
     }
   } catch (error) {
     console.log(error);
