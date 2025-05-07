@@ -77,9 +77,8 @@ const loadMoreOrders = () => {
                 <span
                   class="badge bg-danger my-1 rounded-0"
                   v-if="order.delivered_at"
-                  >{{ product.delivered_at }}</span
+                  >{{ order.delivered_at }}</span
                 >
-
                 <i v-else class="text-muted">Pending....</i>
               </td>
             </tr>

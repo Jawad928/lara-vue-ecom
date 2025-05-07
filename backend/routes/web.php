@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SizeController;
 use App\Models\Brand;
@@ -104,4 +105,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
         ]
     ]);
+
+    //orders route
+    Route::get('index', [OrderController::class, 'index'])->name('admin.orders.index');
+    Route::get('update/{order}/order', [OrderController::class, 'updateDeliveredAtDate'])->name('admin.orders.update');
+    Route::delete('delete/{order}/order', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
 });
