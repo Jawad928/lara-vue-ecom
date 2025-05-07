@@ -7,6 +7,7 @@ const Cart = () => import('../components/cart/Cart.vue')
 const Profile = () => import('../components/profile/Profile.vue')
 const Checkout = () => import('../components/checkout/checkout.vue')
 const SuccessPayment = () => import('../components/payment/SuccessPayment.vue')
+const UserOrders = () => import('../components/profile/UserOrder.vue')
 
 import { useAuthStore } from "../stores/UseAuthStore.js";
 
@@ -58,6 +59,12 @@ const router = createRouter({
             path: '/success/payment/:hash',
             name: 'successPayment',
             component: SuccessPayment,
+            beforeEnter: [checkIfUserIsLoggedIn]
+        },
+        {
+            path: '/user/orders',
+            name: 'userOrders',
+            component: UserOrders,
             beforeEnter: [checkIfUserIsLoggedIn]
         },
         {
