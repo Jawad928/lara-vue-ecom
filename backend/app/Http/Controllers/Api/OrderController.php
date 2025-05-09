@@ -24,7 +24,7 @@ class OrderController extends Controller
             $order =   Order::create([
                 'qty' => $item['qty'],
                 'user_id' => $request->user()->id,
-                'coupon_id' => $request->coupon_id,
+                'coupon_id' => $item['coupon_id'],
                 'total' => $this->calculateEachOrderTotal($item['price'], $item['qty'], $item['coupon_id']),
             ]);
             $order->products()->attach($item['product_id']);
