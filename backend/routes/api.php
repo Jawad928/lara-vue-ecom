@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\api\ReviewController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -35,6 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
     //order routes
     Route::post('store/order', [OrderController::class, 'storeUserOrder']);
     Route::post('pay/order', [OrderController::class, 'payOrderByStripe']);
+    //reviews routes
+    Route::post('store/review', [ReviewController::class, 'store']);
+    Route::put('update/review', [ReviewController::class, 'update']);
+    Route::delete('delete/review', [ReviewController::class, 'delete']);
 });
 
 //Products Routes
