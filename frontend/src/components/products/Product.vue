@@ -5,8 +5,14 @@ import { useRoute } from "vue-router";
 import Spinner from "../layouts/Spinner.vue";
 import { useCartStore } from "../../stores/useCartStore";
 import { makeUniqueId } from "../../helpers/config";
+import { useAuthStore } from "../../stores/useAuthStore";
+import AddReview from "../Review/AddReview.vue";
 
 const ProductDetailStore = useProductDetailStore();
+
+//define store
+const authStore = useAuthStore();
+
 // define the route
 const route = useRoute();
 
@@ -172,6 +178,12 @@ onMounted(() => ProductDetailStore.fetchAllProducts(route.params.slug));
             <i class="bi bi-cart-plus"></i> Add to cart
           </button>
         </div>
+      </div>
+    </div>
+
+    <div class="row my-4" v-if="ProductDetailStore.product">
+      <div class="col-md-5 mx-auto">
+        <div v-if="authStore.isLoggedIn"><AddReview /></div>
       </div>
     </div>
   </div>

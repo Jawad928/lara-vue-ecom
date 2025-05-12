@@ -1,15 +1,25 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { Base_URL } from '../helpers/config';
+import { Base_URL, headerConfig } from '../helpers/config';
+import { useAuthStore } from './useAuthStore';
+import { useToast } from 'vue-toastification';
 
+//define auth store
+const authStore = useAuthStore()
 
+//define toast
+const toast = useToast()
 export const useProductDetailStore = defineStore('product', {
     state: () => ({
         product: null,
         productThumbnail: '',
         productImages: [],
-        is_loading: false,
-        errorMessage: ''
+        isLoading: false,
+        errorMessage: '',
+        reviewToUpdata: {
+            updating: false,
+            data: null
+        }
     }),
     actions: {
         async fetchAllProducts(slug) {
@@ -51,5 +61,62 @@ export const useProductDetailStore = defineStore('product', {
                 console.log(error);
             }
         },
+
+
+        editReview(review) {
+
+            this.reviewToUpdata = {
+                updating: true,
+                data: review
+            }
+
+        },
+
+        cancelUpdatingReview() {
+            this.reviewToUpdata = {
+                updating: false,
+                data: null
+            }
+        },
+
+        async storeReview(review) {
+            try {
+                this.isLoading = true;
+                const response = await axios.post(`${Base_URL}/store/review`, {
+                    product_id: this.product.id,
+                    title: review.title,
+                    body: review.body,
+                    rating: review.rating,
+
+                }, headerConfig(authStore.access_token))
+
+
+                if (response.data.error) {
+                    toast.error(response.data.error), {
+                        timeout: 2000
+                    }
+                } else {
+                    toast.success(response.data.message), {
+                        timeout: 2000,
+                    }
+                }
+
+
+                this.isLoading = false
+
+
+
+            } catch (error) {
+                console.log(error);
+                this.isLoading = false
+
+            }
+        }
+
+
+
+
+
+
     }
 })

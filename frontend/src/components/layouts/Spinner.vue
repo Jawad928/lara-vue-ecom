@@ -20,9 +20,6 @@ const data = reactive({
 });
 </script>
 <template>
-  <loading
-    v-model:active="props.store.isLoading"
-    :is-full-page="data.fullpage"
-  />
+  <loading v-model:active="store.isLoading" :is-full-page="data.fullpage" />
 </template>
 <style scoped></style>

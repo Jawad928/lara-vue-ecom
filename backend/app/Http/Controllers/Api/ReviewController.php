@@ -23,7 +23,7 @@ class ReviewController extends Controller
 
             return response()->json([
 
-                'message' => 'You have already reviewed this product',
+                'error' => 'You have already reviewed this product',
             ]);
         } else {
 
