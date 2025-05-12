@@ -29,3 +29,8 @@ https://github.com/Maronato/vue-toastification/tree/next
 
 **persisted data in pinia**
 https://www.npmjs.com/package/pinia-plugin-persistedstate
+
+
+**to install vue-star rating pkg
+https://www.npmjs.com/package/vue-star-rating
+import StarRating from ".vue-star-rating";
