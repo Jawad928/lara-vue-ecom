@@ -7,6 +7,7 @@ import { useCartStore } from "../../stores/useCartStore";
 import { makeUniqueId } from "../../helpers/config";
 import { useAuthStore } from "../../stores/useAuthStore";
 import AddReview from "../Review/AddReview.vue";
+import ReviewList from "../Review/ReviewList.vue";
 
 const ProductDetailStore = useProductDetailStore();
 
@@ -182,7 +183,9 @@ onMounted(() => ProductDetailStore.fetchAllProducts(route.params.slug));
     </div>
 
     <div class="row my-4" v-if="ProductDetailStore.product">
-      <div class="col-md-5 mx-auto">
+      <div class="col-md-8 mx-auto">
+        <ReviewList />
+
         <div v-if="authStore.isLoggedIn"><AddReview /></div>
       </div>
     </div>
