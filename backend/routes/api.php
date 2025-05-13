@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //reviews routes
     Route::post('store/review', [ReviewController::class, 'store']);
     Route::put('update/review', [ReviewController::class, 'update']);
-    Route::delete('delete/review', [ReviewController::class, 'delete']);
+    Route::post('delete/review', [ReviewController::class, 'delete']);
 });
 
 //Products Routes
