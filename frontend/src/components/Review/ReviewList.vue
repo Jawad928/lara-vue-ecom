@@ -62,7 +62,10 @@ const AuthStore = useAuthStore();
             class="d-flex flex-column align-items-center"
             v-if="AuthStore.isLoggedIn && AuthStore.user.id === review.user_id"
           >
-            <button class="btn btn-sm btn-danger mb-2">
+            <button
+              class="btn btn-sm btn-danger mb-2"
+              @click="ProductDetailStore.removeReview(review)"
+            >
               <i class="bi bi-trash"></i>
             </button>
             <button
