@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import { useProductDetailStore } from "../../stores/useProductDetailStore";
 import { useRoute } from "vue-router";
 import Spinner from "../layouts/Spinner.vue";
@@ -9,6 +9,7 @@ import { useAuthStore } from "../../stores/useAuthStore";
 import AddReview from "../Review/AddReview.vue";
 import ReviewList from "../Review/ReviewList.vue";
 import UpdateReview from "../Review/UpdateReview.vue";
+import StarRating from "vue-star-rating";
 
 const ProductDetailStore = useProductDetailStore();
 
@@ -45,6 +46,16 @@ const checkIfUserBoughtTheProduct = () => {
   );
 };
 
+//calculate the avg rating of review
+
+const avgReview = computed(() =>
+  ProductDetailStore.product?.reviews?.reduce(
+    (acc, review) =>
+      acc + review.rating / ProductDetailStore.product.reviews.length,
+    0
+  )
+);
+
 //once the component is mounted we fetch the product
 onMounted(() => ProductDetailStore.fetchAllProducts(route.params.slug));
 </script>
@@ -80,6 +91,23 @@ onMounted(() => ProductDetailStore.fetchAllProducts(route.params.slug));
     </div>
 
     <div class="col-md-5 mx-auto">
+      <div v-if="ProductDetailStore.product?.reviews.length > 0">
+        <StarRating
+          v-model:rating="avgReview"
+          :show-rating="false"
+          read-only
+          :star-size="24"
+        />
+        <small class="text-muted">
+          {{ ProductDetailStore.product?.reviews.length }}
+          {{
+            ProductDetailStore.product?.reviews.length > 1
+              ? "reviews"
+              : "review"
+          }}
+        </small>
+      </div>
+
       <h5 class="my-3">
         {{ ProductDetailStore.product?.name }}
       </h5>
