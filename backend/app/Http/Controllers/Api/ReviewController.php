@@ -65,7 +65,7 @@ class ReviewController extends Controller
 
             return response()->json([
 
-                'message' => 'Something went wrong try again later',
+                'error' => 'Something went wrong try again later',
             ]);
         }
     }
