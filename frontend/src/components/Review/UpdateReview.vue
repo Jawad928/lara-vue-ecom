@@ -11,16 +11,16 @@ const ProductDetailStore = useProductDetailStore();
 
 const data = reactive({
   review: {
-    title: "",
-    body: "",
-    rating: 0,
+    title: ProductDetailStore.reviewToUpdata.data.title,
+    body: ProductDetailStore.reviewToUpdata.data.body,
+    rating: ProductDetailStore.reviewToUpdata.data.rating,
+    id: ProductDetailStore.reviewToUpdata.data.id,
   },
 });
 
-//add function to submit the review
-const addReview = () => {
-  ProductDetailStore.storeReview(data.review);
-
+//update function to submit the review
+const editReview = () => {
+  ProductDetailStore.updateReview(data.review);
   data.review = { title: "", body: "", rating: 0 };
 };
 </script>
@@ -30,11 +30,11 @@ const addReview = () => {
     <Spinner :store="ProductDetailStore"></Spinner>
 
     <div class="card-header bg-white">
-      <h5 class="text-center mt-2">Add Your Review</h5>
+      <h5 class="text-center mt-2">Edit Your Review</h5>
     </div>
 
     <div class="card-body">
-      <form @submit.prevent="addReview" class="mt-5 col-md-10 mx-auto">
+      <form @submit.prevent="editReview" class="mt-5 col-md-10 mx-auto">
         <div class="mb-3">
           <label for="" class="form-label">Title*</label>
           <input
@@ -45,7 +45,7 @@ const addReview = () => {
             :required="true"
             v-model="data.review.title"
             aria-describedby="helpId"
-            placeholder="Title"
+            placeholder="title"
           />
         </div>
 
@@ -72,7 +72,14 @@ const addReview = () => {
           class="btn btn-dark btn-sm"
           :disabled="data.review.rating == 0"
         >
-          Submit
+          Update
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm mx-2"
+          @click="ProductDetailStore.cancelUpdatingReview()"
+        >
+          Cancel
         </button>
       </form>
     </div>
