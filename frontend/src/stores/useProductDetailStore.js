@@ -112,6 +112,47 @@ export const useProductDetailStore = defineStore('product', {
 
             }
         },
+        async updateReview(review) {
+            try {
+                this.isLoading = true;
+                const response = await axios.put(`${Base_URL}/update/review`, {
+                    product_id: this.product.id,
+                    title: review.title,
+                    body: review.body,
+                    rating: review.rating,
+
+                }, headerConfig(authStore.access_token))
+
+
+                if (response.data.error) {
+                    toast.error(response.data.error), {
+                        timeout: 2000
+                    }
+                } else {
+                    //remove the review from the product review array
+                    this.product.reviews = this.product.reviews.filter((item) => item.id !== review.id)
+                    this.reviewToUpdata = {
+                        updating: false,
+                        data: ''
+                    }
+
+
+                    toast.success(response.data.message), {
+                        timeout: 2000,
+                    }
+                }
+
+
+                this.isLoading = false
+
+
+
+            } catch (error) {
+                console.log(error);
+                this.isLoading = false
+
+            }
+        },
         async removeReview(review) {
 
             if (confirm('Are you sure you want to delete this review?')) {

@@ -8,6 +8,7 @@ import { makeUniqueId } from "../../helpers/config";
 import { useAuthStore } from "../../stores/useAuthStore";
 import AddReview from "../Review/AddReview.vue";
 import ReviewList from "../Review/ReviewList.vue";
+import UpdateReview from "../Review/UpdateReview.vue";
 
 const ProductDetailStore = useProductDetailStore();
 
@@ -34,6 +35,15 @@ const setChosenSize = (size) => {
 };
 
 const cartStore = useCartStore();
+
+//check if user has bought the product
+const checkIfUserBoughtTheProduct = () => {
+  return authStore.user?.orders?.some((order) =>
+    order?.products?.some(
+      (product) => product.id === ProductDetailStore.product?.id
+    )
+  );
+};
 
 //once the component is mounted we fetch the product
 onMounted(() => ProductDetailStore.fetchAllProducts(route.params.slug));
@@ -186,7 +196,12 @@ onMounted(() => ProductDetailStore.fetchAllProducts(route.params.slug));
       <div class="col-md-8 mx-auto">
         <ReviewList />
 
-        <div v-if="authStore.isLoggedIn"><AddReview /></div>
+        <div v-if="authStore.isLoggedIn">
+          <div v-if="checkIfUserBoughtTheProduct()">
+            <UpdateReview v-if="ProductDetailStore.reviewToUpdata.updating" />
+            <AddReview v-else />
+          </div>
+        </div>
       </div>
     </div>
   </div>
