@@ -14,10 +14,7 @@
                         <h3 class="mt-2">
                             Orders({{ $orders->count() }})
                         </h3>
-                        <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-primary">
-                            <i class="fas fa-plus"></i>
 
-                        </a>
                     </div>
                     <hr>
                     <div class="card-body">
