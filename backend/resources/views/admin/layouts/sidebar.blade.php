@@ -59,11 +59,20 @@
                         Coupons
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 " aria-current="page"
                         href="{{ route('admin.orders.index') }}">
                         <i class="fa-solid fa-shopping-cart"></i>
                         Orders
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2 " aria-current="page"
+                        href="{{ route('admin.reviews.index') }}">
+                        <i class="fa-solid fa-star"></i>
+                        Reviews
                     </a>
                 </li>
 
