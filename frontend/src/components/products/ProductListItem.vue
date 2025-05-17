@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from "vue";
 import StarRating from "vue-star-rating";
+
+import { useFavoritesStore } from "../../stores/useFavoritesStore";
 const prop = defineProps({
   product: {
     type: Object,
@@ -8,6 +10,8 @@ const prop = defineProps({
   },
 });
 
+// define store
+const favoritesStore = useFavoritesStore();
 //calculate the avg rating of review
 
 const avgReview = computed(() =>
@@ -53,8 +57,19 @@ const avgReview = computed(() =>
         <button class="btn btn-danger btn-sm">
           <i class="bi bi-cart-plus"></i> Add to Cart
         </button>
-        <button class="btn btn-outline-secondary btn-sm">
+        <button
+          class="btn btn-outline-danger btn-sm"
+          @click="favoritesStore.addToFavorites(product)"
+          v-if="!favoritesStore.checkIfProductAlreadyInFavorites(product)"
+        >
           <i class="bi bi-heart"></i>
+        </button>
+        <button
+          class="btn btn-outline-danger btn-sm"
+          @click="favoritesStore.addToFavorites(product)"
+          v-else
+        >
+          <i class="bi bi-heart-fill"></i>
         </button>
       </div>
     </div>
