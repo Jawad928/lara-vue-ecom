@@ -6,12 +6,15 @@ import { headerConfig, Base_URL } from "../../helpers/config.js";
 import { useToast } from "vue-toastification";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { useFavoritesStore } from "../../stores/useFavoritesStore.js";
 
 const router = useRouter();
 
 const authStore = useAuthStore();
 //toaster
 const toast = useToast();
+//define favorites store
+const favoritesStore = useFavoritesStore();
 
 //define cartStore
 const cartStore = useCartStore();
@@ -85,41 +88,49 @@ onMounted(() => {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link active" aria-current="page" to="/">
+            <router-link class="nav-link" aria-current="page" to="/">
               <i class="bi bi-house-door-fill"></i> Home
             </router-link>
           </li>
 
           <ul class="nav-bar nav" v-if="!authStore.isLoggedIn">
             <li class="nav-item">
-              <router-link class="nav-link active" to="/register">
+              <router-link class="nav-link" to="/register">
                 <i class="bi bi-person-add"></i> Register</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link active" to="/login">
+              <router-link class="nav-link" to="/login">
                 <i class="bi bi-box-arrow-right"></i> Login</router-link
               >
             </li>
           </ul>
-          <ul class="nav-bar nav" v-else>
+          <ul class="navbar-nav" v-else>
             <li class="nav-item">
-              <router-link class="nav-link active" to="/profile">
+              <router-link class="nav-link" to="/profile">
                 <i class="bi bi-person-add"></i>
                 {{ authStore.user.name }}</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link active" @click="userLogout()" to="#">
+              <router-link class="nav-link" @click="userLogout" to="#">
                 <i class="bi bi-box-arrow-left"></i> Logout</router-link
               >
             </li>
           </ul>
 
           <li class="nav-item">
-            <router-link class="nav-link active" to="/cart">
+            <router-link class="nav-link" to="/cart">
               <i class="bi bi-cart-plus"></i> Cart({{
                 cartStore.cartItems.length
+              }})</router-link
+            >
+          </li>
+
+          <li class="nav-item">
+            <router-link class="nav-link" to="/favorites">
+              <i class="bi bi-heart-fill"></i> Favorites({{
+                favoritesStore.favorites.length
               }})</router-link
             >
           </li>
