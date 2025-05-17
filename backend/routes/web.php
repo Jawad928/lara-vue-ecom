@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ReviewController;
 use App\Http\Controllers\admin\SizeController;
+use App\Http\Controllers\admin\UserController;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Route;
 
@@ -118,4 +119,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('reviews', [ReviewController::class, 'index'])->name('admin.reviews.index');
     Route::get('update/{review}/{status}/review', [ReviewController::class, 'toggleApproveStatus'])->name('admin.reviews.update');
     Route::delete('delete/{review}/review', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');
+
+
+    //Users routes
+    Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::delete('delete/{user}/user', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
