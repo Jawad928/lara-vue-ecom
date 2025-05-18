@@ -9,6 +9,7 @@ const Checkout = () => import('../components/checkout/checkout.vue')
 const SuccessPayment = () => import('../components/payment/SuccessPayment.vue')
 const UserOrders = () => import('../components/profile/UserOrder.vue')
 const Favorites = () => import('../components/favorites/Favorites.vue')
+const PageNotFound = () => import('../components/404/PageNotFound.vue')
 
 import { useAuthStore } from "../stores/UseAuthStore.js";
 
@@ -82,6 +83,11 @@ const router = createRouter({
             path: '/favorites',
             name: 'favorites',
             component: Favorites
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'pagenotfound',
+            component: PageNotFound
         },
     ]
 })

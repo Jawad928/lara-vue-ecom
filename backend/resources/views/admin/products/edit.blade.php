@@ -29,7 +29,7 @@
                                             <label for="name" class="form-label">Name*</label>
                                             <input type="text" class="form-control  @error('name') is-invalid @enderror"
                                                 name="name" id="name" placeholder="Name*"
-                                                value="{{ $product->name, old('name') }}" />
+                                                value="{{ old('name', $product->name) }}" />
                                             @error('name')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -46,7 +46,7 @@
                                             <label for="qty" class="form-label">Quantity*</label>
                                             <input type="number" class="form-control  @error('qty') is-invalid @enderror"
                                                 name="qty" id="qty" aria-describedby="helpId"
-                                                placeholder="Quantity*" value="{{ $product->qty, old('qty') }}" />
+                                                placeholder="Quantity*" value="{{ old('qty', $product->qty) }}" />
                                             @error('qty')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
                                             <label for="price" class="form-label">Price*</label>
                                             <input type="number" class="form-control  @error('price') is-invalid @enderror"
                                                 name="price" id="price" placeholder="Price*"
-                                                value="{{ $product->price, old('price') }}" />
+                                                value="{{ old('price', $product->price) }}" />
                                             @error('price')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -82,7 +82,7 @@
                                                 <option value="" selected disabled>Choose a Category</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}"
-                                                        {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                                        @if (old('category_id', $product->category_id) == $category->id) selected @endif>
                                                         {{ $category->name }}
                                                     </option>
                                                 @endforeach
@@ -105,7 +105,7 @@
                                                 <option value="" selected disabled>Choose a Brand</option>
                                                 @foreach ($brands as $brand)
                                                     <option value="{{ $brand->id }}"
-                                                        {{ $product->brand_id == $brand->id ? 'selected' : '' }}>
+                                                        @if (old('brand_id', $product->brand_id) == $brand->id) selected @endif>
                                                         {{ $brand->name }}
                                                     </option>
                                                 @endforeach
@@ -132,7 +132,7 @@
 
                                                 @foreach ($colors as $color)
                                                     <option value="{{ $color->id }}"
-                                                        @if ($product->colors->contains($color->id)) selected @endif>
+                                                        @if (collect(old('color_id', $product->colors->pluck('id')))->contains($color->id)) selected @endif>
 
                                                         {{ $color->name }}
                                                     </option>
@@ -160,10 +160,11 @@
 
                                                 @foreach ($sizes as $size)
                                                     <option value="{{ $size->id }}"
-                                                        @if ($product->sizes->contains($size->id)) selected @endif>
+                                                        @if (collect(old('size_id', $product->sizes->pluck('id')))->contains($size->id)) selected @endif> selected
+                                                @endif>
 
-                                                        {{ $size->name }}
-                                                    </option>
+                                                {{ $size->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                             @error('size_id')
@@ -180,7 +181,7 @@
                                         <div class="mb-3">
                                             <label for="desc" class="form-label ">Description*</label>
                                             <textarea class="form-control summernote @error('desc') is-invalid @enderror " name="desc" id="desc"
-                                                rows="3">{{ $product->desc, old('desc') }}</textarea>
+                                                rows="3">{{ old('desc', $product->desc) }}</textarea>
                                             @error('desc')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>

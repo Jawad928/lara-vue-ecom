@@ -40,6 +40,25 @@ const avgReview = computed(() =>
         </router-link>
 
         <p class="card-text" v-dompurify-html="product.desc.substr(0, 45)"></p>
+
+        <div class="d-inline-flex mb-2">
+          <span class="badge text-bg-light">
+            <i class="bi bi-tag">
+              {{ product.category.name }}
+            </i>
+          </span>
+
+          <span class="badge text-bg-light ms-3">
+            <i class="bi bi-c-circle">
+              {{ product.brand.name }}
+            </i>
+          </span>
+        </div>
+        <div class="mt-2">
+          <span class="badge bg-success" v-if="product.status"> In Stock</span>
+          <span class="badge bg-warning" v-else> Out of Stock</span>
+        </div>
+
         <div v-if="product?.reviews.length > 0">
           <StarRating
             v-model:rating="avgReview"
@@ -54,9 +73,12 @@ const avgReview = computed(() =>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-between bg-light">
-        <button class="btn btn-danger btn-sm">
+        <router-link
+          :to="`product/${product.slug}`"
+          class="btn btn-danger btn-sm"
+        >
           <i class="bi bi-cart-plus"></i> Add to Cart
-        </button>
+        </router-link>
         <button
           class="btn btn-outline-danger btn-sm"
           @click="favoritesStore.addToFavorites(product)"
