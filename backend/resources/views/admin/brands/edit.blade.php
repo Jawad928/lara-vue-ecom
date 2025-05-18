@@ -24,7 +24,7 @@
                                             <label for="name" class="form-label">Name*</label>
                                             <input type="text" class="form-control  @error('name') is-invalid @enderror"
                                                 name="name" id="name" aria-describedby="helpId" placeholder="Name*"
-                                                value="{{ $brand->name, old('name') }}" />
+                                                value="{{ old('name', $brand->name) }}" />
                                             @error('name')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
