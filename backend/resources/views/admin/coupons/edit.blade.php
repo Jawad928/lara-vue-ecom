@@ -24,7 +24,7 @@
                                             <label for="name" class="form-label">Name*</label>
                                             <input type="text" class="form-control  @error('name') is-invalid @enderror"
                                                 name="name" id="name" aria-describedby="helpId" placeholder="Name*"
-                                                value="{{ $coupon->name, old('name') }}" />
+                                                value="{{ old('name', $coupon->name) }}" />
                                             @error('name')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
                                             <input type="number"
                                                 class="form-control  @error('discount') is-invalid @enderror"
                                                 name="discount" id="discount" aria-describedby="helpId"
-                                                placeholder="Discount*" value="{{ $coupon->discount, old('discount') }}" />
+                                                placeholder="Discount*" value="{{ old('discount', $coupon->discount) }}" />
                                             @error('discount')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
