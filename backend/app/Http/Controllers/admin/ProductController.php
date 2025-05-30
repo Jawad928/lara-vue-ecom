@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -175,6 +176,12 @@ class ProductController extends Controller
         if ($file) {
             $imgName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/products/', $imgName, 'public');
+
+            // ALSO copy to public/storage manually
+            $from = storage_path('app/public/images/products/' . $imgName);
+            $to = public_path('storage/images/products/' . $imgName);
+
+            File::copy($from, $to);
             return $imgName;
         }
     }
@@ -185,10 +192,17 @@ class ProductController extends Controller
     public function removeProductImageFromStorage($file)
     {
         if ($file) { // Check if file is not null
-            $path = 'images/products/' . $file;
+            $storagePath = 'images/products/' . $file;
+            $publicPath = public_path('storage/images/products/' . $file); // Manually copied to public
 
-            if (Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->delete($path);
+
+
+            if (Storage::disk('public')->exists($storagePath)) {
+                Storage::disk('public')->delete($storagePath);
+            }
+            // Remove manually copied version from public/storage/images/products
+            if (File::exists($publicPath)) {
+                File::delete($publicPath);
             }
         }
     }

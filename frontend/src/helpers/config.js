@@ -1,4 +1,5 @@
 export const Base_URL = 'http://127.0.0.1:8000/api'
+// export const Base_URL = 'https://adminstylenest.jawadshabbir.com/api'
 
 export const headerConfig = (token, contentType) => {
     const config = {

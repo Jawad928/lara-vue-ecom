@@ -56,7 +56,7 @@ class AdminController extends Controller
             return redirect()->route('admin.index');
         } else {
             return redirect()->route('admin.login')->with([
-                'error' => "These Credentials Do Not Match Any Of Our Records."
+                'error' => "These credentials do not match our records."
             ]);
         }
     }

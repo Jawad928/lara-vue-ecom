@@ -161,10 +161,10 @@
                                                 @foreach ($sizes as $size)
                                                     <option value="{{ $size->id }}"
                                                         @if (collect(old('size_id', $product->sizes->pluck('id')))->contains($size->id)) selected @endif> selected
-                                                @endif>
+                                                        >
 
-                                                {{ $size->name }}
-                                                </option>
+                                                        {{ $size->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             @error('size_id')
